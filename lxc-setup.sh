@@ -4,7 +4,6 @@ echo -e '#!/bin/bash\nif nc -w1 -z "10.0.1.5" 3142; then\n  echo -n "http://10.0
 chmod +x /usr/local/bin/apt-proxy-detect.sh
 echo "Installed APT Proxies"
 echo "Installing APT Packages"
-apt install git -y
 apt install make -y
 echo "Installing Neovim"
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
