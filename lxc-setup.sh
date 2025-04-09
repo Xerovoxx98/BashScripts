@@ -6,11 +6,13 @@ echo "Installed APT Proxies"
 echo "Installing APT Packages"
 apt install git -y
 apt install make -y
-apt install snapd -y
 echo "Installing Neovim"
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 echo "export PATH='$PATH:/opt/nvim-linux-x86_64/bin'" >> ~/.bashrc
 echo "Installed Neovim"
-
+echo "Installing Sexy Bash"
+(cd /tmp && ([[ -d sexy-bash-prompt ]] || git clone --depth 1 --config core.autocrlf=false https://github.com/twolfson/sexy-bash-prompt) && cd sexy-bash-prompt && make install) && source ~/.bashrc
+echo "Installed Sexy Bash"
+source ./.bashrc
