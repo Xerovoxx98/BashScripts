@@ -64,6 +64,11 @@ execute_command_in_container() {
 
     local exec_exit_code
 
+    # Make sure Curl is installed in the container
+    sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -t -t \
+        "$target" \
+        "pct exec $container_id -- bash -c 'apt install curl -y'" # Use $container_user here
+
     # Revised command execution: Removed 'eval', use correct '$container_user' variable
     sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -t -t \
         "$target" \
