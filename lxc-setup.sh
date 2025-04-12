@@ -6,7 +6,7 @@ echo "Installed APT Proxies"
 
 echo "Installing APT Packages"
 apt update && apt upgrade -y
-apt install make git tmux -y
+apt install make git tmux gpg -y
 echo "Installed APT Packages"
 
 echo "Installing Neovim"
