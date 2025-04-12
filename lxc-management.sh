@@ -62,15 +62,13 @@ execute_command_in_container() {
     echo "--- Executing command in container $container_id ---"
     echo "Command: $command"
 
-    # Use sshpass to provide the password and execute the command.
-    # Use -t -t to force pseudo-terminal allocation, often needed for interactive commands or certain scripts.
-    local exec_output
     local exec_exit_code
 
-    # Note: Capturing output here might be complex if the command is interactive or produces a lot of output.
-    # This example focuses on executing the command and checking its success/failure via exit code.
-    # If you need to capture the command's output reliably, consider redirecting it to a file within the container first.
-    eval "$ssh_cmd_base -t -t $target \"pct exec $container_id --user $container_user -- bash -c '$command'\""
+    # Revised command execution: Removed 'eval', use correct '$container_user' variable
+    sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -t -t \
+        "$target" \
+        "pct exec $container_id --user $container_user -- bash -c '$command'" # Use $container_user here
+
     exec_exit_code=$?
 
     if [ $exec_exit_code -eq 0 ]; then
@@ -79,9 +77,8 @@ execute_command_in_container() {
     else
         echo "ERROR: Failed to execute command in container $container_id."
         echo "Exit Code: $exec_exit_code"
-        # Note: Capturing stderr/stdout from the pct exec command executed via SSH can be tricky.
-        # The error might have been displayed directly to the terminal during execution.
-        # Consider logging within the CONTAINER_COMMAND itself if detailed error info is needed.
+        # Error message from the remote command itself should have been printed directly
+        # to the log just before this error message (as seen in the log provided).
         return 1
     fi
 }
