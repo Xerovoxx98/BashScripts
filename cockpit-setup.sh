@@ -1,6 +1,6 @@
 #!/bin/bash
 apt update && apt upgrade
-apt install gpg git
+apt install gpg git lsb-core
 curl -sSL https://repo.45drives.com/setup | bash
 apt update && apt upgrade -y
 apt install cockit-file-sharing -y
