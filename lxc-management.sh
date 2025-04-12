@@ -67,7 +67,7 @@ execute_command_in_container() {
     # Revised command execution: Removed 'eval', use correct '$container_user' variable
     sshpass -p "$password" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -t -t \
         "$target" \
-        "pct exec $container_id --user $container_user -- bash -c '$command'" # Use $container_user here
+        "pct exec $container_id -- bash -c '$command'" # Use $container_user here
 
     exec_exit_code=$?
 
