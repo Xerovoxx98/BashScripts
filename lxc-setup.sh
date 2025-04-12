@@ -1,6 +1,11 @@
 echo "Installing APT-Proxies"
 echo 'Acquire::http::Proxy-Auto-Detect "/usr/local/bin/apt-proxy-detect.sh";' > /etc/apt/apt.conf.d/00aptproxy
-echo -e '#!/bin/bash\nif nc -w1 -z "10.0.1.3" 3142; then\n  echo -n "http://10.0.1.3:3142"\n else\n  echo -n "DIRECT"\nfi' > /usr/local/bin/apt-proxy-detect.sh
+echo '#!/bin/bash' > /usr/local/bin/apt-proxy-detect.sh
+echo 'if nc -w1 -z "10.0.1.3" 3142; then' >> /usr/local/bin/apt-proxy-detect.sh
+echo '  echo -n "http://10.0.1.3:3142"' >> /usr/local/bin/apt-proxy-detect.sh
+echo 'else' >> /usr/local/bin/apt-proxy-detect.sh
+echo '  echo -n "DIRECT"' >> /usr/local/bin/apt-proxy-detect.sh
+echo 'fi' >> /usr/local/bin/apt-proxy-detect.sh
 chmod +x /usr/local/bin/apt-proxy-detect.sh
 echo "Installed APT Proxies"
 
